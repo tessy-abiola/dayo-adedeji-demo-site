@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dayo Adedeji — Founder & CEO, Dynasty Africa</title>
+<meta name="description" content="The personal home of Dayo Adedeji: his journey, ideas, work and conversations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens: edit colours here ---------- */
+:root{
+  --paper:#ECEAE4; --paper-2:#E1DED6; --ink:#1B1B1A; --muted:#6B6A64;
+  --night:#101420; --night-text:#D9D8D2; --accent:#2F4A8C; --accent-soft:#9FB1DD;
+  --line:rgba(27,27,26,.18);
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pad:clamp(20px,5vw,72px);
+}
+:root:not([data-theme="light"]){}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;height:auto}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(80px + env(safe-area-inset-top,0px))}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.dark :focus-visible{outline-color:var(--accent-soft)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99}
+.skip:focus{left:8px}
+.wrap{padding-inline:var(--pad);max-width:1480px;margin-inline:auto}
+section{padding-block:clamp(72px,11vw,160px)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(40px,6.4vw,92px)}
+h3{font-size:clamp(26px,3vw,40px);line-height:1.1}
+p{max-width:62ch}
+.serif-p{font-family:var(--serif);font-size:clamp(22px,2.3vw,30px);line-height:1.35}
+.small{font-size:14px;color:var(--muted)}
+.dark .small{color:#8E92A0}
+.cta{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;text-decoration:none;padding:15px 24px;border:1px solid currentColor;min-height:48px;transition:background .25s,color .25s}
+.cta.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cta.solid:hover{background:var(--accent);border-color:var(--accent)}
+.cta:not(.solid):hover{background:var(--ink);color:var(--paper)}
+.dark .cta:hover{background:var(--night-text);color:var(--night)}
+.tlink{font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.dark{background:var(--night);color:var(--night-text)}
+
+/* ---------- Image slot: replace with real photography via content.images ---------- */
+.ph{position:relative;overflow:hidden;background:var(--paper-2);aspect-ratio:var(--r,4/5);display:flex;align-items:flex-end}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph.empty{background:repeating-linear-gradient(135deg,var(--paper-2) 0 14px,#d9d6cd 14px 15px)}
+.dark .ph.empty{background:repeating-linear-gradient(135deg,#171c2c 0 14px,#1d2336 14px 15px)}
+.ph .note{position:absolute;left:12px;bottom:10px;font-size:12px;color:var(--muted);max-width:80%;line-height:1.35}
+.dark .ph .note{color:#8E92A0}
+.reveal .ph::after{content:"";position:absolute;inset:0;background:var(--paper);transform-origin:top;transition:transform 1s cubic-bezier(.7,0,.2,1)}
+.dark .reveal .ph::after{background:var(--night)}
+.reveal.in .ph::after{transform:scaleY(0)}
+
+/* ---------- Nav ---------- */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 14px;display:flex;justify-content:space-between;align-items:center;background:var(--paper);border-bottom:1px solid var(--line);transition:transform .45s cubic-bezier(.6,0,.2,1)}
+header.nav.hide{transform:translateY(-100%)}
+.brand{font-family:var(--serif);font-size:24px;text-decoration:none;letter-spacing:.01em}
+.nav ul{list-style:none;display:flex;gap:30px;padding:0;align-items:center}
+.nav ul a{font-size:14px;font-weight:500;text-decoration:none;padding:6px 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+.nav ul a:hover{background-size:100% 1px}
+.nav .cta{padding:10px 18px;min-height:40px;font-size:14px}
+.menu-btn{display:none;background:none;border:1px solid var(--ink);font:600 14px var(--sans);padding:10px 16px;min-height:44px;cursor:pointer;color:var(--ink)}
+@media(max-width:860px){
+  .menu-btn{display:block}
+  .nav ul{position:fixed;inset:0;background:var(--night);color:var(--night-text);flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;padding:var(--pad);display:none}
+  .nav ul.open{display:flex}
+  .nav ul a{font-family:var(--serif);font-size:44px;line-height:1.2}
+  .nav ul .cta{font:600 15px var(--sans);margin-top:20px;padding:14px 22px}
+  .menu-btn{position:relative;z-index:60}
+  .nav.menu-open{background:var(--night);color:var(--night-text);border-color:transparent}
+  .nav.menu-open .menu-btn,.nav.menu-open .brand{color:var(--night-text);border-color:var(--night-text);position:relative;z-index:60}
+}
+
+/* ---------- Hero ---------- */
+.hero{padding-top:clamp(110px,14vw,170px);padding-bottom:0;min-height:100svh}
+.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,64px);align-items:end}
+.hero h1{font-size:clamp(64px,13vw,200px);line-height:.88;margin-bottom:.28em}
+.hero .role{font-family:var(--serif);font-style:italic;font-size:clamp(26px,3.2vw,44px);margin-bottom:28px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;padding-bottom:clamp(40px,6vw,80px)}
+.hero .duo{display:grid;grid-template-columns:1fr;align-items:end}
+.hero .portrait{--r:4/5}
+.hero .second{margin-bottom:0;transform:translateY(0)}
+.hero .in-up{opacity:0;transform:translateY(18px);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .in-up:nth-child(2){animation-delay:.12s}.hero .in-up:nth-child(3){animation-delay:.24s}.hero .in-up:nth-child(4){animation-delay:.36s}
+@keyframes up{to{opacity:1;transform:none}}
+@media(max-width:860px){
+  .hero{min-height:0}
+  .hero .grid{grid-template-columns:1fr}
+  .hero .duo{order:-1;margin-inline:calc(var(--pad)*-1);gap:4px}
+  .hero h1{font-size:clamp(60px,19vw,120px)}
+}
+
+/* ---------- Intro ---------- */
+.intro .cols{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:start}
+.intro h2{font-size:clamp(38px,5.4vw,78px)}
+.intro .body{display:grid;gap:22px;padding-top:.6em}
+@media(max-width:860px){.intro .cols{grid-template-columns:1fr}}
+
+/* ---------- Story ---------- */
+.story .head{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);margin-bottom:clamp(48px,8vw,110px)}
+.chapter{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,32px);align-items:center;padding-block:clamp(32px,5vw,64px);border-top:1px solid rgba(217,216,210,.16)}
+.chapter .txt{grid-column:1/6}
+.chapter .ph{grid-column:7/13;--r:3/2}
+.chapter:nth-of-type(even) .txt{grid-column:8/13;grid-row:1}
+.chapter:nth-of-type(even) .ph{grid-column:1/7;grid-row:1}
+.chapter .ph.tall{max-width:440px;justify-self:end}
+.chapter:nth-of-type(even) .ph.tall{justify-self:start}
+.chapter h3{margin-bottom:16px}
+.chapter p{color:#B9B9B3}
+@media(max-width:860px){
+  .story .head{grid-template-columns:1fr}
+  .chapter .txt,.chapter .ph,.chapter:nth-of-type(even) .txt,.chapter:nth-of-type(even) .ph{grid-column:1/-1;grid-row:auto}
+  .chapter .ph{--r:4/3}
+}
+
+/* ---------- Company ---------- */
+.company .cols{display:grid;grid-template-columns:6fr 5fr;gap:clamp(28px,6vw,100px);align-items:end}
+.company .facts{border-top:1px solid var(--ink);display:grid}
+.company .facts div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.company .facts dt{color:var(--muted);font-size:14px}
+.company .facts dd{margin:0}
+@media(max-width:860px){.company .cols{grid-template-columns:1fr}}
+
+/* ---------- Work ---------- */
+.work-item{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,32px);padding-block:clamp(28px,4vw,56px);border-top:1px solid var(--line);align-items:start}
+.work-item .ph{grid-column:1/8;--r:16/10}
+.work-item .info{grid-column:9/13;display:grid;gap:14px;align-content:start}
+.work-item:nth-child(even) .ph{grid-column:6/13;grid-row:1}
+.work-item:nth-child(even) .info{grid-column:1/5;grid-row:1}
+.work-item dl{display:grid;gap:2px;margin-top:6px;font-size:14px}
+.work-item dt{color:var(--muted)}
+.work-item dd{margin:0 0 8px}
+.flag{font-size:12px;color:var(--accent);font-weight:600}
+@media(max-width:860px){
+  .work-item .ph,.work-item .info,.work-item:nth-child(even) .ph,.work-item:nth-child(even) .info{grid-column:1/-1;grid-row:auto}
+}
+
+@media(min-width:861px){
+  .work-item.tall .ph{grid-column:1/6}.work-item.tall .info{grid-column:7/13}
+  .work-item.tall:nth-child(even) .ph{grid-column:8/13}.work-item.tall:nth-child(even) .info{grid-column:2/7}
+}
+.recog .row+.row{margin-top:40px}
+.recog .row.has-img{grid-template-columns:minmax(150px,240px) 5fr 6fr}
+@media(max-width:860px){.recog .row.has-img{grid-template-columns:1fr}.recog .row.has-img .ph{max-width:240px}}
+/* ---------- Ideas ---------- */
+.ideas .top{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,64px)}
+.essay{display:grid;grid-template-columns:130px 1fr 220px;gap:clamp(16px,3vw,48px);padding:clamp(22px,3vw,40px) 0;border-top:1px solid var(--line);text-decoration:none;align-items:start;transition:padding .35s}
+.essay:last-child{border-bottom:1px solid var(--line)}
+.essay:hover{padding-left:14px}
+.essay:hover h3{color:var(--accent)}
+.essay h3{transition:color .25s;margin-bottom:10px}
+.essay .meta{font-size:14px;color:var(--muted);display:grid;gap:4px}
+.essay .ph{--r:4/3}
+.essay p{font-size:16px;color:#46453f}
+@media(max-width:860px){
+  .essay{grid-template-columns:1fr;gap:12px}
+  .essay .meta{grid-auto-flow:column;justify-content:start;gap:16px}
+  .essay .ph{display:none}
+  .essay:hover{padding-left:0}
+}
+
+/* ---------- Featured thought ---------- */
+.thought{background:var(--accent);color:#F2F1EC;padding-block:clamp(90px,14vw,200px)}
+.thought blockquote{font-family:var(--serif);font-size:clamp(34px,5.4vw,78px);line-height:1.08;max-width:19em;margin:0}
+.thought .src{margin-top:28px;font-size:14px;color:#C5D0EC;max-width:60ch}
+.thought :focus-visible{outline-color:#fff}
+
+/* ---------- Recognition / Media / Speaking ---------- */
+.recog .row{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:center;border-top:1px solid var(--ink);padding-top:28px}
+.recog .big{font-family:var(--serif);font-size:clamp(32px,4.4vw,60px);line-height:1.05}
+.media-row{display:grid;grid-template-columns:140px 1fr auto;gap:24px;padding:22px 0;border-top:1px solid var(--line);align-items:baseline}
+@media(max-width:860px){.recog .row{grid-template-columns:1fr}.media-row{grid-template-columns:1fr;gap:4px}}
+.speaking .cols{display:grid;grid-template-columns:6fr 5fr;gap:clamp(28px,6vw,100px);align-items:start}
+.topics{list-style:none;padding:0;border-top:1px solid rgba(217,216,210,.25)}
+.topics li{padding:15px 0;border-bottom:1px solid rgba(217,216,210,.16);font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.2}
+.speaking .actions{margin-top:34px}
+@media(max-width:860px){.speaking .cols{grid-template-columns:1fr}}
+
+/* ---------- About ---------- */
+.about .cols{display:grid;grid-template-columns:4fr 7fr;gap:clamp(28px,6vw,100px);align-items:start}
+.about .ph{--r:4/5;position:sticky;top:100px}
+.about .copy{display:grid;gap:22px}
+@media(max-width:860px){.about .cols{grid-template-columns:1fr}.about .ph{position:static}}
+
+/* ---------- Contact / Footer ---------- */
+.contact h2{font-size:clamp(64px,15vw,230px);line-height:.88;margin-bottom:36px}
+.contact .cols{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:start}
+.links{list-style:none;padding:0;border-top:1px solid rgba(217,216,210,.25)}
+.links li{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid rgba(217,216,210,.16)}
+.links .k{color:#8E92A0;font-size:14px;align-self:center}
+.links .off{color:#8E92A0;font-size:14px}
+.links a{overflow-wrap:anywhere}
+@media(max-width:860px){.contact .cols{grid-template-columns:1fr}}
+footer{padding:44px var(--pad) 36px;border-top:1px solid rgba(217,216,210,.16);display:grid;grid-template-columns:1fr auto;gap:28px 48px;font-size:14px}
+footer .name{font-family:var(--serif);font-size:28px;line-height:1.1}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:start;justify-content:flex-end}
+footer a{text-decoration:none}footer a:hover{text-decoration:underline}
+footer .legal{grid-column:1/-1;color:#8E92A0}
+@media(max-width:860px){footer{grid-template-columns:1fr}footer nav{justify-content:flex-start}}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hero .in-up{opacity:1;transform:none}
+  .reveal .ph::after{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" data-bind="name">Dayo Adedeji</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+  <ul id="menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#ideas">Ideas</a></li>
+    <li data-optional="media"><a href="#media">Media</a></li>
+    <li><a href="#speaking">Speaking</a></li>
+    <li><a class="cta" href="#contact">Let's Talk →</a></li>
+  </ul>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero wrap" id="top" aria-labelledby="h1">
+  <div class="grid">
+    <div>
+      <h1 id="h1" class="in-up" data-bind="name-lines">Dayo<br>Adedeji</h1>
+      <p class="role in-up">Founder. Builder. Student of the game.</p>
+      <p class="serif-p in-up" data-bind="heroLine"></p>
+      <div class="actions in-up">
+        <a class="cta solid" href="#work">Explore my work →</a>
+        <a class="cta" href="#contact">Let's talk →</a>
+      </div>
+    </div>
+    <div class="duo"><div class="ph portrait" data-img="hero"></div></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro" aria-labelledby="introH">
+  <div class="wrap cols">
+    <h2 id="introH">I build things I believe should exist.</h2>
+    <div class="body">
+      <p class="serif-p">Marketing, to me, is a way of paying attention: to people, to culture, to what a brand is really trying to say.</p>
+      <p>I started Dynasty Africa in Lagos in 2021, after learning what it takes to rebuild an audience from nothing. I'm still learning how African brands earn trust, how teams grow into leaders, and what the work looks like when nobody has written the playbook yet.</p>
+      <p class="small">Draft copy, written from Dayo's public themes. Replace with his own words in <code>content.intro</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story dark" id="journey" aria-labelledby="storyH">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="storyH">The journey</h2>
+      <p class="serif-p">Not a CV. Five moments Dayo has spoken about publicly, told in short.</p>
+    </div>
+    <div id="chapters"></div>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section class="company" id="dynasty" aria-labelledby="coH">
+  <div class="wrap cols">
+    <div>
+      <h2 id="coH">Building Dynasty Africa</h2>
+      <p class="serif-p" style="margin-top:28px">Dynasty Africa is the biggest thing Dayo has built so far. It is a chapter in his story, not the whole of it.</p>
+      <p style="margin-top:18px">As Founder & CEO, he leads a full-service creative and marketing agency in Lagos. For the agency's services, team and client work, go to the company's own site.</p>
+      <p style="margin-top:34px"><a class="cta solid" data-bind-href="dynastyUrl" href="#">Visit Dynasty Africa →</a></p>
+    </div>
+    <dl class="facts">
+      <div><dt>Role</dt><dd>Founder & CEO</dd></div>
+      <div><dt>Founded</dt><dd>2021</dd></div>
+      <div><dt>Based in</dt><dd>Lagos, Nigeria</dd></div>
+      <div><dt>Disciplines</dt><dd>Digital, social media, influencers, production, tech and traditional marketing</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" aria-labelledby="workH" style="padding-top:0">
+  <div class="wrap">
+    <h2 id="workH" style="margin-bottom:clamp(32px,5vw,64px)">Selected work</h2>
+    <div id="projects"></div>
+  </div>
+</section>
+
+<!-- IDEAS -->
+<section class="ideas" id="ideas" aria-labelledby="ideasH" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="top">
+      <h2 id="ideasH">Ideas</h2>
+      <p class="serif-p" style="max-width:24em">An owned archive for what Dayo is thinking about and learning.</p>
+    </div>
+    <div id="articles"></div>
+  </div>
+</section>
+
+<!-- FEATURED THOUGHT -->
+<section class="thought" aria-label="Featured thought">
+  <div class="wrap">
+    <figure style="margin:0">
+      <blockquote data-bind="thought.text"></blockquote>
+      <figcaption class="src" data-bind="thought.source"></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section class="recog" aria-labelledby="recH" style="padding-bottom:clamp(40px,6vw,80px)">
+  <div class="wrap">
+    <h2 id="recH" class="small" style="font:600 15px var(--sans);margin-bottom:18px">Recognition</h2>
+    <div id="recognition"></div>
+  </div>
+</section>
+
+<!-- MEDIA (optional: set content.media = [] to hide) -->
+<section id="media" aria-labelledby="mediaH" data-optional="media" style="padding-top:0">
+  <div class="wrap">
+    <h2 id="mediaH" style="font-size:clamp(34px,4.6vw,64px);margin-bottom:28px">In the press</h2>
+    <div id="mediaList"></div>
+  </div>
+</section>
+
+<!-- SPEAKING -->
+<section class="speaking dark" id="speaking" aria-labelledby="spkH">
+  <div class="wrap cols">
+    <div>
+      <h2 id="spkH">Conversations, ideas and the work behind the work.</h2>
+      <p style="margin-top:28px">Dayo is open to conversations about building brands and businesses. If you're hosting something, or just want a thoughtful founder in the room, get in touch.</p>
+      <p class="actions"><a class="cta" data-bind-mailto="speakSubject" href="#contact">Invite Dayo to speak →</a></p>
+    </div>
+    <ul class="topics" aria-label="Topics">
+      <li>Speaking</li><li>Founder conversations</li><li>Marketing and brand strategy</li>
+      <li>Entrepreneurship</li><li>Leadership and building teams</li><li>African creativity and business</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about" aria-labelledby="abH">
+  <div class="wrap cols">
+    <div class="ph" data-img="about"></div>
+    <div class="copy">
+      <h2 id="abH">About Dayo</h2>
+      <p class="serif-p">Founder & CEO of Dynasty Africa, and still a student of the game.</p>
+      <p>Dayo builds at the point where creativity, culture, marketing and business meet. He has spoken publicly about starting Dynasty Africa without an established playbook, about learning from failure, and about what pressure and trust do to a company.</p>
+      <p>He cares about developing future leaders rather than just employees, and about helping African brands understand the audiences they are speaking to, and turn that understanding into commercial results.</p>
+      <p class="small">Draft biography built only from public themes. Add personal details (upbringing, education, interests) in <code>content.about</code> once Dayo supplies them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact dark" id="contact" aria-labelledby="ctH">
+  <div class="wrap">
+    <h2 id="ctH">Let's talk.</h2>
+    <div class="cols">
+      <p class="serif-p">For collaborations, speaking, ideas, partnerships, or a conversation about building brands.</p>
+      <ul class="links" id="links"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="dark">
+  <div>
+    <div class="name" data-bind="name">Dayo Adedeji</div>
+    <div class="small">Founder & CEO, Dynasty Africa</div>
+  </div>
+  <nav aria-label="Footer">
+    <a href="#about">About</a><a href="#work">Work</a><a href="#ideas">Ideas</a><a href="#speaking">Speaking</a><a href="#contact">Contact</a>
+    <a data-bind-href="dynastyUrl" href="#">Dynasty Africa</a>
+  </nav>
+  <div class="legal">© <span id="yr"></span> Dayo Adedeji. All rights reserved.</div>
+</footer>
+
+<script>
+const IMGS = {
+  "hero": "assets/images/dayo-cream-suit-portrait.webp",
+  "cannes": "assets/images/dayo-cannes-dolphin-award.webp",
+  "moni": "assets/images/dayo-moni-launch.webp",
+  "about": "assets/images/dayo-profile-portrait.webp",
+  "forbes": "assets/images/forbes-africa-30-under-30-2026.webp",
+  "team": "assets/images/dynasty-africa-team-studio.webp",
+  "cadbury": "assets/images/dynasty-africa-cadbury-campaign.webp",
+  "start": "assets/images/journey-starting-over.webp",
+  "find": "assets/images/journey-finding-the-problem.webp",
+  "playbook": "assets/images/journey-without-a-playbook.webp"
+};
+/* =====================================================================
+   CONTENT: the only block that needs editing. No CMS, just data.
+   Anything marked placeholder:true renders with a visible flag and
+   should be replaced or removed before launch.
+   Images: set `src` to a real file. null renders a labelled placeholder.
+   ===================================================================== */
+const content = {
+  name: "Dayo Adedeji",
+  heroLine: "Founder & CEO of Dynasty Africa, building at the intersection of creativity, culture, marketing and business.",
+  dynastyUrl: null, // e.g. "https://…" (not verified, so left empty)
+  email: null,      // e.g. "hello@…"
+  speakSubject: "Speaking invitation",
+  images: {
+    hero:  { src: IMGS.forbes, alt: "Dayo Adedeji on his Forbes Africa 30 Under 30 Class of 2026 feature graphic", w: 680, h: 856, pos: "50% 30%", eager: true },
+    about: { src: IMGS.about, alt: "Dayo Adedeji in profile, wearing glasses and a dark jacket against a warm backdrop", w: 720, h: 722, pos: "40% 50%" }
+  },
+  // Themes are from Dayo's public remarks. Wording is a neutral summary; swap in his own.
+  story: [
+    { title: "Starting over", text: "Dayo has said publicly that he lost social accounts and had to rebuild audiences from scratch. It taught him how attention is earned.", image: { src: IMGS.start, alt: "Dayo Adedeji in a black-and-white video still, standing in front of a chain-link fence", w: 484, h: 584, pos: "50% 30%", ratio: "4/5", tall: true } },
+    { title: "Finding the problem", text: "He noticed a founder who needed help communicating a product, and reached out directly to offer it.", image: { src: IMGS.find, alt: "Dayo Adedeji smiling in a dark three-piece suit and brown tie, in a studio portrait", w: 720, h: 658, pos: "50% 20%", ratio: "4/3" } },
+    { title: "Building Dynasty Africa", text: "That experience became part of the foundation of the agency he started in Lagos in 2021.", image: { src: IMGS.team, alt: "The Dynasty Africa team posed together in a white studio, some seated on stools and some standing", w: 1024, h: 683, pos: "50% 50%" } },
+    { title: "Building without a playbook", text: "Influencer marketing in Nigeria had no established blueprint when he entered it, so the company learned by doing.", image: { src: IMGS.playbook, alt: "Dayo Adedeji seen from behind, facing a large illuminated Dynasty Africa sign", w: 484, h: 807, pos: "50% 70%", ratio: "3/4", tall: true } },
+    { title: "What came next", text: "Growth, more work and recognition: a Cannes Dolphin Award for Dynasty Africa, a place in the Forbes Africa 30 Under 30 Class of 2026, and an expansion into Côte d'Ivoire that Dayo announced in November 2025. The story is still being written.", image: { src: IMGS.cannes, alt: "Dayo Adedeji smiling as he holds the Cannes Dolphin Award trophy", w: 662, h: 796, pos: "50% 46%" } }
+  ],
+  projects: [
+    { flag: "", title: "Cadbury Hot Chocolate: \u201c3-in-1 Ways\u201d", brand: "Cadbury", role: "Dynasty Africa: insight development, influencer content direction, creative oversight and campaign execution", description: "An influencer-led campaign positioning Cadbury Hot Chocolate as an affordable, convenient choice for families, built around the catchphrase \u201c3-in-1 Ways.\u201d", note: "Summarised from Dynasty Africa's own campaign graphic. No results are claimed; add them only if verified.", url: null, image: { src: IMGS.cadbury, alt: "Dynasty Africa campaign summary for Cadbury Hot Chocolate, on a purple background with the Cadbury and Dynasty Africa logos", w: 720, h: 953, pos: "50% 50%", ratio: "3/4" } },
+    { flag: "Details to confirm", title: "Moni launch", brand: "Moni", role: "To confirm", description: "Dayo has said publicly that Dynasty Africa created work with Moni for its launch. Add the campaign details and campaign imagery here.", note: "Photo: Dayo at the launch, from his Instagram. Replace with campaign visuals.", url: null, image: { src: IMGS.moni, alt: "Dayo Adedeji in dark clothes lifting his sunglasses, standing in front of a lit MONI sign", w: 682, h: 852, pos: "50% 50%", ratio: "4/5" } }
+  ],
+  articles: [ // Placeholder structure. Titles echo public themes; there are no article bodies.
+    { placeholder: true, title: "Building without a playbook", date: "Date", category: "Founding", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
+    { placeholder: true, title: "What building Dynasty Africa taught me about trust", date: "Date", category: "Business", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
+    { placeholder: true, title: "Building leaders instead of employees", date: "Date", category: "Leadership", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
+    { placeholder: true, title: "What failure teaches you about the market", date: "Date", category: "Learning", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } }
+  ],
+  thought: {
+    text: "Placeholder: one idea from Dayo's own writing goes here.",
+    source: "Placeholder. Use only a direct, sourced quote from Dayo's public writing, and link the source."
+  },
+  recognition: [
+    { title: "Forbes Africa 30 Under 30", detail: "Class of 2026", url: null },
+    { title: "Cannes Dolphin Award", detail: "Won by Dynasty Africa. Dayo announced it on his Instagram.", url: null }
+  ],
+  media: [], // add { publication, title, date, description, url }. Empty array hides the section and nav link.
+  social: [
+    { label: "LinkedIn", url: null }, { label: "Instagram", url: null },
+    { label: "X", url: null }, { label: "Dynasty Africa", url: null }
+  ]
+};
+
+/* ---------- Rendering (small, dependency-free) ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const el = (h) => { const t = document.createElement("template"); t.innerHTML = h.trim(); return t.content.firstChild; };
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const get = (o, p) => p.split(".").reduce((a, k) => a?.[k], o);
+const slot = (img, extra = "") => img?.src
+  ? `<div class="ph reveal ${extra}"${img.ratio ? ` style="--r:${img.ratio}"` : ""}><img src="${img.src}" alt="${esc(img.alt)}" width="${img.w}" height="${img.h}" decoding="async" ${img.eager ? 'fetchpriority="high"' : 'loading="lazy"'} style="object-position:${img.pos || "50% 50%"}"></div>`
+  : `<div class="ph empty reveal ${extra}" role="img" aria-label="Image placeholder"><span class="note">${esc(img?.note || "Image placeholder")}</span></div>`;
+
+document.querySelectorAll("[data-bind]").forEach(n => { const k = n.dataset.bind; if (k !== "name-lines") n.textContent = get(content, k); });
+document.querySelectorAll("[data-bind-href]").forEach(n => { const u = get(content, n.dataset.bindHref); if (u) { n.href = u; n.rel = "noopener"; } else n.title = "Add the Dynasty Africa URL in content.dynastyUrl"; });
+document.querySelectorAll("[data-bind-mailto]").forEach(n => { if (content.email) n.href = `mailto:${content.email}?subject=${encodeURIComponent(content[n.dataset.bindMailto])}`; });
+document.querySelectorAll("[data-img]").forEach(n => { const w = el(slot(content.images[n.dataset.img])); n.replaceWith(w); w.className += " " + n.className.replace("ph", "").trim(); });
+
+$("#chapters").append(...content.story.map(c => el(`<article class="chapter reveal"><div class="txt"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></div>${slot(c.image, c.image.tall ? "tall" : "")}</article>`)));
+$("#projects").append(...content.projects.map(p => el(`<article class="work-item${p.image?.ratio ? " tall" : ""}">${slot(p.image)}<div class="info">${p.flag ? `<span class="flag">${esc(p.flag)}</span>` : ""}<h3>${esc(p.title)}</h3><dl><dt>Brand</dt><dd>${esc(p.brand)}</dd><dt>Role</dt><dd>${esc(p.role)}</dd></dl><p>${esc(p.description)}</p>${p.note ? `<p class="small">${esc(p.note)}</p>` : ""}${p.url ? `<a class="tlink" href="${esc(p.url)}">Read the case study</a>` : ""}</div></article>`)));
+$("#articles").append(...content.articles.map(a => el(`<a class="essay" ${a.url ? `href="${esc(a.url)}"` : 'href="#ideas" aria-disabled="true"'}><div class="meta"><span>${esc(a.date)}</span><span>${esc(a.category)}</span></div><div><h3>${esc(a.title)}</h3><p>${esc(a.excerpt)}</p>${a.placeholder ? '<span class="flag" style="display:block;margin-top:8px">Placeholder</span>' : ""}</div>${slot(a.image)}</a>`)));
+$("#recognition").append(...content.recognition.map(r => el(`<div class="row${r.image ? " has-img" : ""}">${r.image ? slot(r.image) : ""}<p class="big">${esc(r.title)}</p><div><p class="serif-p">${esc(r.detail)}</p>${r.url ? `<p style="margin-top:12px"><a class="tlink" href="${esc(r.url)}" rel="noopener">Read the source</a></p>` : '<p class="small" style="margin-top:8px">Add a source link in content.recognition.</p>'}</div></div>`)));
+$("#mediaList").append(...content.media.map(m => el(`<div class="media-row"><span class="small">${esc(m.date)}</span><div><h3 style="font-size:26px">${esc(m.title)}</h3><p class="small">${esc(m.publication)}. ${esc(m.description)}</p></div><a class="tlink" href="${esc(m.url)}" rel="noopener">Read</a></div>`)));
+if (!content.media.length) document.querySelectorAll('[data-optional="media"]').forEach(n => n.remove());
+
+const links = [];
+links.push(content.email ? `<li><span class="k">Email</span><a class="tlink" href="mailto:${esc(content.email)}">${esc(content.email)}</a></li>` : `<li><span class="k">Email</span><span class="off">Add in content.email</span></li>`);
+content.social.forEach(s => links.push(`<li><span class="k">${esc(s.label)}</span>${s.url && /^https?:/.test(s.url) ? `<a class="tlink" href="${esc(s.url)}" rel="noopener">${esc(s.url.replace(/^https?:\/\/(www\.)?/, ""))}</a>` : `<span class="off">Add link</span>`}</li>`));
+$("#links").append(...links.map(el));
+$("#yr").textContent = new Date().getFullYear();
+
+/* ---------- Behaviour ---------- */
+const nav = $("#nav"), btn = $("#menuBtn"), menu = $("#menu");
+let lastY = 0;
+addEventListener("scroll", () => {
+  const y = scrollY;
+  if (!menu.classList.contains("open")) nav.classList.toggle("hide", y > lastY && y > 120);
+  lastY = y;
+}, { passive: true });
+nav.addEventListener("focusin", () => nav.classList.remove("hide"));
+const setMenu = (o) => { menu.classList.toggle("open", o); nav.classList.toggle("menu-open", o); btn.setAttribute("aria-expanded", o); btn.textContent = o ? "Close" : "Menu"; document.body.style.overflow = o ? "hidden" : ""; };
+btn.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
+menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 }) : null;
+document.querySelectorAll(".reveal").forEach(n => io ? io.observe(n) : n.classList.add("in"));
+</script>
+</body>
+</html>
