@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dayo Adedeji — Founder & CEO, Dynasty Africa</title>
-<meta name="description" content="The personal home of Dayo Adedeji: his journey, ideas, work and conversations.">
+<meta name="description" content="The personal home of Dayo Adedeji: my journey, ideas, work and conversations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 
-/* ---------- Tokens: edit colours here ---------- */
+/* ---------- Tokens ---------- */
 :root{
   --paper:#ECEAE4; --paper-2:#E1DED6; --ink:#1B1B1A; --muted:#6B6A64;
   --night:#101420; --night-text:#D9D8D2; --accent:#2F4A8C; --accent-soft:#9FB1DD;
@@ -18,85 +18,157 @@
   --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
   --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --pad:clamp(20px,5vw,72px);
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
-:root:not([data-theme="light"]){}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px;height:auto}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:calc(80px + env(safe-area-inset-top,0px))}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:calc(80px + env(safe-area-inset-top,0px));height:auto}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+body.loading{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
+::selection{background:var(--accent);color:#fff}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .dark :focus-visible{outline-color:var(--accent-soft)}
-.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:999}
 .skip:focus{left:8px}
 .wrap{padding-inline:var(--pad);max-width:1480px;margin-inline:auto}
-section{padding-block:clamp(72px,11vw,160px)}
+section{padding-block:clamp(72px,11vw,160px);position:relative}
 h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.01em}
 h2{font-size:clamp(40px,6.4vw,92px)}
 h3{font-size:clamp(26px,3vw,40px);line-height:1.1}
+h2 em,h3 em{font-style:italic;color:var(--accent)}
+.dark h2 em{color:var(--accent-soft)}
 p{max-width:62ch}
 .serif-p{font-family:var(--serif);font-size:clamp(22px,2.3vw,30px);line-height:1.35}
 .small{font-size:14px;color:var(--muted)}
 .dark .small{color:#8E92A0}
-.cta{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;text-decoration:none;padding:15px 24px;border:1px solid currentColor;min-height:48px;transition:background .25s,color .25s}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font:600 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor;transform-origin:left;animation:grow 1.2s var(--ease) both}
+.dark .eyebrow{color:#8E92A0}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.cta{position:relative;display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;text-decoration:none;padding:15px 24px;border:1px solid currentColor;min-height:48px;overflow:hidden;isolation:isolate;transition:color .35s,transform .25s var(--ease)}
+.cta::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .45s var(--ease);z-index:-1}
+.cta:hover::before{transform:none}
+.cta:hover{color:var(--paper)}
 .cta.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.cta.solid:hover{background:var(--accent);border-color:var(--accent)}
-.cta:not(.solid):hover{background:var(--ink);color:var(--paper)}
-.dark .cta:hover{background:var(--night-text);color:var(--night)}
+.cta.solid::before{background:var(--accent)}
+.cta .arr{display:inline-block;transition:transform .3s var(--ease)}
+.cta:hover .arr{transform:translateX(5px)}
+.dark .cta::before{background:var(--night-text)}
+.dark .cta:hover{color:var(--night)}
 .tlink{font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
 .dark{background:var(--night);color:var(--night-text)}
 
-/* ---------- Image slot: replace with real photography via content.images ---------- */
+/* ---------- Atmosphere: grain, progress, cursor ---------- */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:90;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;z-index:120}
+.cursor{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:110;opacity:0;mix-blend-mode:multiply;transition:width .3s var(--ease),height .3s var(--ease),opacity .3s,background .3s;will-change:transform}
+.cursor.on{opacity:.9}
+.cursor.big{width:64px;height:64px;opacity:.28}
+@media(hover:none),(pointer:coarse){.cursor{display:none}}
+
+/* ---------- Loader ---------- */
+.loader{position:fixed;inset:0;background:var(--night);color:var(--night-text);z-index:200;display:grid;place-items:center;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.loader.done{transform:translateY(-100%)}
+.loader .mark{font-family:var(--serif);font-size:clamp(40px,8vw,96px);overflow:hidden;line-height:1.1;display:flex;flex-direction:column;align-items:center}
+.loader .mark span{display:block;transform:translateY(110%);animation:rise .9s var(--ease) .15s forwards}
+.loader .bar{width:min(220px,50vw);height:1px;background:rgba(217,216,210,.2);margin-top:22px;overflow:hidden}
+.loader .bar i{display:block;height:100%;background:var(--accent-soft);transform:scaleX(0);transform-origin:left;animation:fill 1.1s cubic-bezier(.6,0,.2,1) .1s forwards}
+@keyframes rise{to{transform:none}}
+@keyframes fill{to{transform:scaleX(1)}}
+
+/* ---------- Scroll reveal ---------- */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- Image slot ---------- */
 .ph{position:relative;overflow:hidden;background:var(--paper-2);aspect-ratio:var(--r,4/5);display:flex;align-items:flex-end}
-.ph img{width:100%;height:100%;object-fit:cover}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ph:hover img{transform:scale(1.04)}
 .ph.empty{background:repeating-linear-gradient(135deg,var(--paper-2) 0 14px,#d9d6cd 14px 15px)}
 .dark .ph.empty{background:repeating-linear-gradient(135deg,#171c2c 0 14px,#1d2336 14px 15px)}
-.ph .note{position:absolute;left:12px;bottom:10px;font-size:12px;color:var(--muted);max-width:80%;line-height:1.35}
-.dark .ph .note{color:#8E92A0}
-.reveal .ph::after{content:"";position:absolute;inset:0;background:var(--paper);transform-origin:top;transition:transform 1s cubic-bezier(.7,0,.2,1)}
-.dark .reveal .ph::after{background:var(--night)}
-.reveal.in .ph::after{transform:scaleY(0)}
+.reveal .ph::after,.ph.reveal::after{content:"";position:absolute;inset:0;background:var(--paper);transform-origin:top;transition:transform 1.1s cubic-bezier(.7,0,.2,1);z-index:2;pointer-events:none}
+.dark .ph.reveal::after{background:var(--night)}
+.ph.reveal.in::after{transform:scaleY(0)}
+[data-tilt]{transform-style:preserve-3d;transition:transform .5s var(--ease)}
 
 /* ---------- Nav ---------- */
-header.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 14px;display:flex;justify-content:space-between;align-items:center;background:var(--paper);border-bottom:1px solid var(--line);transition:transform .45s cubic-bezier(.6,0,.2,1)}
+header.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 14px;display:flex;justify-content:space-between;align-items:center;background:rgba(236,234,228,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:transform .45s cubic-bezier(.6,0,.2,1)}
 header.nav.hide{transform:translateY(-100%)}
 .brand{font-family:var(--serif);font-size:24px;text-decoration:none;letter-spacing:.01em}
 .nav ul{list-style:none;display:flex;gap:30px;padding:0;align-items:center}
 .nav ul a{font-size:14px;font-weight:500;text-decoration:none;padding:6px 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
-.nav ul a:hover{background-size:100% 1px}
-.nav .cta{padding:10px 18px;min-height:40px;font-size:14px}
+.nav ul a:hover,.nav ul a.active{background-size:100% 1px}
+.nav ul a.cta{background:none;padding:10px 18px;min-height:40px;font-size:14px}
 .menu-btn{display:none;background:none;border:1px solid var(--ink);font:600 14px var(--sans);padding:10px 16px;min-height:44px;cursor:pointer;color:var(--ink)}
 @media(max-width:860px){
-  .menu-btn{display:block}
+  .menu-btn{display:block;position:relative;z-index:60}
   .nav ul{position:fixed;inset:0;background:var(--night);color:var(--night-text);flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;padding:var(--pad);display:none}
   .nav ul.open{display:flex}
+  .nav ul.open li{animation:up .6s var(--ease) both}
+  .nav ul.open li:nth-child(2){animation-delay:.05s}.nav ul.open li:nth-child(3){animation-delay:.1s}.nav ul.open li:nth-child(4){animation-delay:.15s}.nav ul.open li:nth-child(5){animation-delay:.2s}.nav ul.open li:nth-child(6){animation-delay:.25s}
   .nav ul a{font-family:var(--serif);font-size:44px;line-height:1.2}
-  .nav ul .cta{font:600 15px var(--sans);margin-top:20px;padding:14px 22px}
-  .menu-btn{position:relative;z-index:60}
+  .nav ul a.cta{font:600 15px var(--sans);margin-top:20px;padding:14px 22px}
   .nav.menu-open{background:var(--night);color:var(--night-text);border-color:transparent}
   .nav.menu-open .menu-btn,.nav.menu-open .brand{color:var(--night-text);border-color:var(--night-text);position:relative;z-index:60}
 }
 
 /* ---------- Hero ---------- */
-.hero{padding-top:clamp(110px,14vw,170px);padding-bottom:0;min-height:100svh}
-.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,64px);align-items:end}
+.hero{padding-top:clamp(110px,14vw,170px);padding-bottom:0;min-height:100svh;overflow:hidden}
+.hero::before{content:"";position:absolute;width:min(70vw,760px);aspect-ratio:1;right:-12vw;top:6vh;background:radial-gradient(circle,rgba(47,74,140,.22),transparent 65%);filter:blur(20px);animation:drift 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes drift{to{transform:translate(-6vw,6vh) scale(1.15)}}
+.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,64px);align-items:end;position:relative}
 .hero h1{font-size:clamp(64px,13vw,200px);line-height:.88;margin-bottom:.28em}
-.hero .role{font-family:var(--serif);font-style:italic;font-size:clamp(26px,3.2vw,44px);margin-bottom:28px}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .ch{display:inline-block;transform:translateY(115%) rotate(6deg);transition:transform 1s var(--ease);transition-delay:calc(var(--i)*55ms + 1.0s)}
+body.ready .hero h1 .ch{transform:none}
+.hero .role{font-family:var(--serif);font-style:italic;font-size:clamp(26px,3.2vw,44px);margin-bottom:28px;min-height:1.3em}
+.hero .role .caret{display:inline-block;width:2px;height:.9em;background:var(--accent);margin-left:4px;vertical-align:-.08em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
 .hero .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;padding-bottom:clamp(40px,6vw,80px)}
-.hero .duo{display:grid;grid-template-columns:1fr;align-items:end}
+.hero .fade{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0)*1s + 1.5s)}
+body.ready .hero .fade{opacity:1;transform:none}
+.hero .duo{display:grid;grid-template-columns:1fr;align-items:end;position:relative}
 .hero .portrait{--r:4/5}
-.hero .second{margin-bottom:0;transform:translateY(0)}
-.hero .in-up{opacity:0;transform:translateY(18px);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
-.hero .in-up:nth-child(2){animation-delay:.12s}.hero .in-up:nth-child(3){animation-delay:.24s}.hero .in-up:nth-child(4){animation-delay:.36s}
-@keyframes up{to{opacity:1;transform:none}}
+.hero .portrait img{transform:scale(1.12)}
+.badge{position:absolute;left:-46px;bottom:56px;width:128px;height:128px;z-index:5;background:var(--accent);color:#F2F1EC;border-radius:50%;display:grid;place-items:center;box-shadow:0 14px 40px rgba(16,20,32,.28)}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.badge text{font:600 10.5px var(--sans);letter-spacing:.2em;fill:currentColor;text-transform:uppercase}
+.badge b{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scrollcue{position:absolute;left:var(--pad);bottom:22px;display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.scrollcue i{display:block;width:1px;height:44px;background:var(--line);position:relative;overflow:hidden}
+.scrollcue i::after{content:"";position:absolute;left:0;top:0;width:1px;height:16px;background:var(--ink);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{from{transform:translateY(-16px)}to{transform:translateY(44px)}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media(max-width:860px){
   .hero{min-height:0}
   .hero .grid{grid-template-columns:1fr}
-  .hero .duo{order:-1;margin-inline:calc(var(--pad)*-1);gap:4px}
+  .hero .duo{order:-1;margin-inline:calc(var(--pad)*-1)}
   .hero h1{font-size:clamp(60px,19vw,120px)}
+  .badge{left:auto;right:var(--pad);bottom:-40px;width:104px;height:104px}
+  .scrollcue{display:none}
 }
+
+/* ---------- Marquee ---------- */
+.marquee{background:var(--ink);color:var(--paper);padding-block:22px!important;overflow:hidden;white-space:nowrap}
+.marquee .track{display:inline-flex;animation:slide 32s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{font-family:var(--serif);font-size:clamp(28px,4vw,52px);padding-inline:26px;display:inline-flex;align-items:center;gap:52px}
+.marquee span::after{content:"✦";font-size:.5em;color:var(--accent-soft)}
+.marquee span:nth-child(even){font-style:italic}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- Stats ---------- */
+.stats{padding-block:clamp(48px,7vw,96px)}
+.stats .row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,48px)}
+.stat{border-top:1px solid var(--ink);padding-top:18px}
+.stat .n{font-family:var(--serif);font-size:clamp(52px,7vw,104px);line-height:1;display:block}
+.stat .l{font-size:14px;color:var(--muted);margin-top:8px;max-width:24ch}
+@media(max-width:860px){.stats .row{grid-template-columns:1fr 1fr;row-gap:36px}}
 
 /* ---------- Intro ---------- */
 .intro .cols{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:start}
@@ -105,16 +177,20 @@ header.nav.hide{transform:translateY(-100%)}
 @media(max-width:860px){.intro .cols{grid-template-columns:1fr}}
 
 /* ---------- Story ---------- */
-.story .head{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);margin-bottom:clamp(48px,8vw,110px)}
-.chapter{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,32px);align-items:center;padding-block:clamp(32px,5vw,64px);border-top:1px solid rgba(217,216,210,.16)}
+.story .head{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);margin-bottom:clamp(48px,8vw,110px);align-items:end}
+.chapter{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,32px);align-items:center;padding-block:clamp(32px,5vw,64px);border-top:1px solid rgba(217,216,210,.16);position:relative}
 .chapter .txt{grid-column:1/6}
 .chapter .ph{grid-column:7/13;--r:3/2}
 .chapter:nth-of-type(even) .txt{grid-column:8/13;grid-row:1}
 .chapter:nth-of-type(even) .ph{grid-column:1/7;grid-row:1}
 .chapter .ph.tall{max-width:440px;justify-self:end}
 .chapter:nth-of-type(even) .ph.tall{justify-self:start}
+.chapter .num{font-family:var(--serif);font-style:italic;font-size:clamp(60px,8vw,120px);line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(159,177,221,.55);display:block;margin-bottom:10px;transition:color .6s,-webkit-text-stroke-color .6s}
+.chapter:hover .num{color:var(--accent-soft)}
 .chapter h3{margin-bottom:16px}
 .chapter p{color:#B9B9B3}
+.chapter::before{content:"";position:absolute;top:-1px;left:0;height:1px;background:var(--accent-soft);width:0;transition:width 1.4s var(--ease)}
+.chapter.in::before{width:100%}
 @media(max-width:860px){
   .story .head{grid-template-columns:1fr}
   .chapter .txt,.chapter .ph,.chapter:nth-of-type(even) .txt,.chapter:nth-of-type(even) .ph{grid-column:1/-1;grid-row:auto}
@@ -124,7 +200,8 @@ header.nav.hide{transform:translateY(-100%)}
 /* ---------- Company ---------- */
 .company .cols{display:grid;grid-template-columns:6fr 5fr;gap:clamp(28px,6vw,100px);align-items:end}
 .company .facts{border-top:1px solid var(--ink);display:grid}
-.company .facts div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.company .facts div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);transition:padding .3s var(--ease),background .3s}
+.company .facts div:hover{padding-left:12px;background:rgba(47,74,140,.06)}
 .company .facts dt{color:var(--muted);font-size:14px}
 .company .facts dd{margin:0}
 @media(max-width:860px){.company .cols{grid-template-columns:1fr}}
@@ -138,21 +215,18 @@ header.nav.hide{transform:translateY(-100%)}
 .work-item dl{display:grid;gap:2px;margin-top:6px;font-size:14px}
 .work-item dt{color:var(--muted)}
 .work-item dd{margin:0 0 8px}
-.flag{font-size:12px;color:var(--accent);font-weight:600}
+.flag{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 @media(max-width:860px){
   .work-item .ph,.work-item .info,.work-item:nth-child(even) .ph,.work-item:nth-child(even) .info{grid-column:1/-1;grid-row:auto}
 }
-
 @media(min-width:861px){
   .work-item.tall .ph{grid-column:1/6}.work-item.tall .info{grid-column:7/13}
   .work-item.tall:nth-child(even) .ph{grid-column:8/13}.work-item.tall:nth-child(even) .info{grid-column:2/7}
 }
-.recog .row+.row{margin-top:40px}
-.recog .row.has-img{grid-template-columns:minmax(150px,240px) 5fr 6fr}
-@media(max-width:860px){.recog .row.has-img{grid-template-columns:1fr}.recog .row.has-img .ph{max-width:240px}}
+
 /* ---------- Ideas ---------- */
 .ideas .top{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,64px)}
-.essay{display:grid;grid-template-columns:130px 1fr 220px;gap:clamp(16px,3vw,48px);padding:clamp(22px,3vw,40px) 0;border-top:1px solid var(--line);text-decoration:none;align-items:start;transition:padding .35s}
+.essay{display:grid;grid-template-columns:130px 1fr 220px;gap:clamp(16px,3vw,48px);padding:clamp(22px,3vw,40px) 0;border-top:1px solid var(--line);text-decoration:none;align-items:start;transition:padding .35s var(--ease);position:relative}
 .essay:last-child{border-bottom:1px solid var(--line)}
 .essay:hover{padding-left:14px}
 .essay:hover h3{color:var(--accent)}
@@ -160,6 +234,7 @@ header.nav.hide{transform:translateY(-100%)}
 .essay .meta{font-size:14px;color:var(--muted);display:grid;gap:4px}
 .essay .ph{--r:4/3}
 .essay p{font-size:16px;color:#46453f}
+.soon{display:inline-block;margin-top:10px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 10px;border-radius:99px}
 @media(max-width:860px){
   .essay{grid-template-columns:1fr;gap:12px}
   .essay .meta{grid-auto-flow:column;justify-content:start;gap:16px}
@@ -168,19 +243,30 @@ header.nav.hide{transform:translateY(-100%)}
 }
 
 /* ---------- Featured thought ---------- */
-.thought{background:var(--accent);color:#F2F1EC;padding-block:clamp(90px,14vw,200px)}
-.thought blockquote{font-family:var(--serif);font-size:clamp(34px,5.4vw,78px);line-height:1.08;max-width:19em;margin:0}
+.thought{background:var(--accent);color:#F2F1EC;padding-block:clamp(90px,14vw,200px);overflow:hidden}
+.thought::before{content:"“";position:absolute;left:var(--pad);top:-.1em;font-family:var(--serif);font-size:clamp(300px,40vw,620px);line-height:1;color:rgba(255,255,255,.07);pointer-events:none}
+.thought blockquote{font-family:var(--serif);font-size:clamp(34px,5.4vw,78px);line-height:1.08;max-width:19em;margin:0;position:relative}
+.thought .w{display:inline-block;opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i)*45ms)}
+.thought.in .w{opacity:1;transform:none}
 .thought .src{margin-top:28px;font-size:14px;color:#C5D0EC;max-width:60ch}
-.thought :focus-visible{outline-color:#fff}
 
-/* ---------- Recognition / Media / Speaking ---------- */
-.recog .row{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:center;border-top:1px solid var(--ink);padding-top:28px}
+/* ---------- Recognition ---------- */
+.recog .row{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:center;border-top:1px solid var(--ink);padding:28px 0;transition:background .35s,padding .35s var(--ease)}
+.recog .row:hover{background:rgba(47,74,140,.07);padding-inline:18px}
 .recog .big{font-family:var(--serif);font-size:clamp(32px,4.4vw,60px);line-height:1.05}
+@media(max-width:860px){.recog .row{grid-template-columns:1fr}}
+
+/* ---------- Press ---------- */
 .media-row{display:grid;grid-template-columns:140px 1fr auto;gap:24px;padding:22px 0;border-top:1px solid var(--line);align-items:baseline}
-@media(max-width:860px){.recog .row{grid-template-columns:1fr}.media-row{grid-template-columns:1fr;gap:4px}}
+@media(max-width:860px){.media-row{grid-template-columns:1fr;gap:4px}}
+
+/* ---------- Speaking ---------- */
 .speaking .cols{display:grid;grid-template-columns:6fr 5fr;gap:clamp(28px,6vw,100px);align-items:start}
 .topics{list-style:none;padding:0;border-top:1px solid rgba(217,216,210,.25)}
-.topics li{padding:15px 0;border-bottom:1px solid rgba(217,216,210,.16);font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.2}
+.topics li{padding:15px 0;border-bottom:1px solid rgba(217,216,210,.16);font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.2;display:flex;justify-content:space-between;gap:16px;transition:padding .35s var(--ease),color .3s}
+.topics li::after{content:"→";opacity:0;transform:translateX(-10px);transition:.35s var(--ease);color:var(--accent-soft)}
+.topics li:hover{padding-left:14px;color:#fff}
+.topics li:hover::after{opacity:1;transform:none}
 .speaking .actions{margin-top:34px}
 @media(max-width:860px){.speaking .cols{grid-template-columns:1fr}}
 
@@ -191,13 +277,16 @@ header.nav.hide{transform:translateY(-100%)}
 @media(max-width:860px){.about .cols{grid-template-columns:1fr}.about .ph{position:static}}
 
 /* ---------- Contact / Footer ---------- */
+.contact{overflow:hidden}
+.contact::before{content:"";position:absolute;width:60vw;aspect-ratio:1;left:-15vw;bottom:-30vw;background:radial-gradient(circle,rgba(47,74,140,.5),transparent 65%);filter:blur(30px);animation:drift 16s ease-in-out infinite alternate;pointer-events:none}
+.contact .wrap{position:relative}
 .contact h2{font-size:clamp(64px,15vw,230px);line-height:.88;margin-bottom:36px}
 .contact .cols{display:grid;grid-template-columns:5fr 6fr;gap:clamp(28px,6vw,100px);align-items:start}
 .links{list-style:none;padding:0;border-top:1px solid rgba(217,216,210,.25)}
 .links li{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid rgba(217,216,210,.16)}
 .links .k{color:#8E92A0;font-size:14px;align-self:center}
-.links .off{color:#8E92A0;font-size:14px}
-.links a{overflow-wrap:anywhere}
+.links a{overflow-wrap:anywhere;font-family:var(--serif);font-size:24px;border:0}
+.links a:hover{color:var(--accent-soft)}
 @media(max-width:860px){.contact .cols{grid-template-columns:1fr}}
 footer{padding:44px var(--pad) 36px;border-top:1px solid rgba(217,216,210,.16);display:grid;grid-template-columns:1fr auto;gap:28px 48px;font-size:14px}
 footer .name{font-family:var(--serif);font-size:28px;line-height:1.1}
@@ -206,16 +295,34 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 footer .legal{grid-column:1/-1;color:#8E92A0}
 @media(max-width:860px){footer{grid-template-columns:1fr}footer nav{justify-content:flex-start}}
 
+.totop{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:48px;height:48px;border-radius:50%;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font-size:18px;cursor:pointer;z-index:60;opacity:0;transform:translateY(16px);pointer-events:none;transition:.4s var(--ease)}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .hero .in-up{opacity:1;transform:none}
-  .reveal .ph::after{display:none}
+  .rv,.hero .fade,.thought .w{opacity:1;transform:none}
+  .hero h1 .ch{transform:none}
+  .ph.reveal::after{display:none}
+  .loader{display:none}
 }
+.chapter.noimg .txt,.chapter.noimg:nth-of-type(even) .txt{grid-column:1/-1;grid-row:auto}
+.work-item.noimg .info,.work-item.noimg:nth-child(even) .info,.work-item.tall.noimg .info,.work-item.tall.noimg:nth-child(even) .info{grid-column:1/-1;grid-row:auto}
 </style>
 </head>
-<body>
+<body class="loading">
 <a class="skip" href="#main">Skip to content</a>
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cursor"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div style="text-align:center">
+    <div class="mark"><span>Dayo</span><span style="animation-delay:.28s">Adedeji</span></div>
+    <div class="bar" style="margin-inline:auto"><i></i></div>
+  </div>
+</div>
 
 <header class="nav" id="nav">
   <a class="brand" href="#top" data-bind="name">Dayo Adedeji</a>
@@ -226,7 +333,7 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
     <li><a href="#ideas">Ideas</a></li>
     <li data-optional="media"><a href="#media">Media</a></li>
     <li><a href="#speaking">Speaking</a></li>
-    <li><a class="cta" href="#contact">Let's Talk →</a></li>
+    <li><a class="cta" href="#contact">Let's Talk <span class="arr">→</span></a></li>
   </ul>
 </header>
 
@@ -235,26 +342,42 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <section class="hero wrap" id="top" aria-labelledby="h1">
   <div class="grid">
     <div>
-      <h1 id="h1" class="in-up" data-bind="name-lines">Dayo<br>Adedeji</h1>
-      <p class="role in-up">Founder. Builder. Understanding Attention.</p>
-      <p class="serif-p in-up" data-bind="heroLine"></p>
-      <div class="actions in-up">
-        <a class="cta solid" href="#work">Explore my work →</a>
-        <a class="cta" href="#contact">Let's talk →</a>
+      <h1 id="h1" aria-label="Dayo Adedeji"><span class="ln" data-split="Dayo"></span><span class="ln" data-split="Adedeji"></span></h1>
+      <p class="role fade" style="--d:0"><span id="typed"></span><span class="caret"></span></p>
+      <p class="serif-p fade" style="--d:.15" data-bind="heroLine"></p>
+      <div class="actions fade" style="--d:.3">
+        <a class="cta solid" href="#work" data-magnet>Explore my work <span class="arr">→</span></a>
+        <a class="cta" href="#contact" data-magnet>Let's talk <span class="arr">→</span></a>
       </div>
     </div>
-    <div class="duo"><div class="ph portrait" data-img="hero"></div></div>
+    <div class="duo">
+      <div class="ph portrait" data-img="hero" data-parallax></div>
+      <div class="badge fade" style="--d:.5" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ">Forbes Africa 30 Under 30 • Class of 2026 •</textPath></text></svg>
+        <b>30</b>
+      </div>
+    </div>
   </div>
+  <div class="scrollcue" aria-hidden="true"><i></i>Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee" aria-hidden="true">
+  <div class="track" id="marquee"></div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap"><div class="row" id="stats"></div></div>
 </section>
 
 <!-- INTRO -->
-<section class="intro" aria-labelledby="introH">
+<section class="intro" aria-labelledby="introH" style="padding-top:clamp(20px,4vw,60px)">
   <div class="wrap cols">
-    <h2 id="introH">I build things I believe should exist.</h2>
+    <h2 id="introH" class="rv">I build things I believe <em>should exist.</em></h2>
     <div class="body">
-      <p class="serif-p">Marketing, to me, is a way of paying attention: to people, to culture, to what a brand is really trying to say.</p>
-      <p>I started Dynasty Africa in Lagos in 2021, after learning what it takes to rebuild an audience from nothing. I'm still learning how African brands earn trust, how teams grow into leaders, and what the work looks like when nobody has written the playbook yet.</p>
-      <p class="small">Draft copy, written from Dayo's public themes. Replace with his own words in <code>content.intro</code>.</p>
+      <p class="serif-p rv" style="--d:.1s">Marketing, to me, is a way of paying attention: to people, to culture, to what a brand is really trying to say.</p>
+      <p class="rv" style="--d:.2s">I started Dynasty Africa in Lagos in 2021, after learning what it takes to rebuild an audience from nothing. I'm still learning how African brands earn trust, how teams grow into leaders, and what the work looks like when nobody has written the playbook yet.</p>
     </div>
   </div>
 </section>
@@ -263,8 +386,8 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <section class="story dark" id="journey" aria-labelledby="storyH">
   <div class="wrap">
     <div class="head">
-      <h2 id="storyH">The journey</h2>
-      <p class="serif-p">Not a CV. Five moments Dayo has spoken about publicly, told in short.</p>
+      <div><span class="eyebrow">Five moments</span><h2 id="storyH" class="rv">The <em>journey</em></h2></div>
+      <p class="serif-p rv" style="--d:.1s">Not a CV. These are the moments that shaped how I work.</p>
     </div>
     <div id="chapters"></div>
   </div>
@@ -274,15 +397,17 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <section class="company" id="dynasty" aria-labelledby="coH">
   <div class="wrap cols">
     <div>
-      <h2 id="coH">Building Dynasty Africa</h2>
-      <p class="serif-p" style="margin-top:28px">Dynasty Africa is the biggest thing Dayo has built so far. It is a chapter in his story, not the whole of it.</p>
-      <p style="margin-top:18px">As Founder & CEO, he leads a full-service creative and marketing agency in Lagos. For the agency's services, team and client work, go to the company's own site.</p>
-      <p style="margin-top:34px"><a class="cta solid" data-bind-href="dynastyUrl" href="#">Visit Dynasty Africa →</a></p>
+      <span class="eyebrow">The company</span>
+      <h2 id="coH" class="rv">Building <em>Dynasty Africa</em></h2>
+      <p class="serif-p rv" style="margin-top:28px;--d:.1s">Dynasty Africa is the biggest thing I've built so far. It is a chapter in my story, not the whole of it.</p>
+      <p class="rv" style="margin-top:18px;--d:.2s">As Founder & CEO, I lead a full-service creative and marketing agency in Lagos. For the agency's services, team and client work, visit the company's own site.</p>
+      <p class="rv" style="margin-top:34px;--d:.3s" id="dynastyCta"><a class="cta solid" data-magnet data-bind-href="dynastyUrl" href="#">Visit Dynasty Africa <span class="arr">→</span></a></p>
     </div>
-    <dl class="facts">
+    <dl class="facts rv" style="--d:.2s">
       <div><dt>Role</dt><dd>Founder & CEO</dd></div>
       <div><dt>Founded</dt><dd>2021</dd></div>
       <div><dt>Based in</dt><dd>Lagos, Nigeria</dd></div>
+      <div><dt>Expanded to</dt><dd>Côte d'Ivoire, announced November 2025</dd></div>
       <div><dt>Disciplines</dt><dd>Digital, social media, influencers, production, tech and traditional marketing</dd></div>
     </dl>
   </div>
@@ -291,7 +416,8 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <!-- WORK -->
 <section id="work" aria-labelledby="workH" style="padding-top:0">
   <div class="wrap">
-    <h2 id="workH" style="margin-bottom:clamp(32px,5vw,64px)">Selected work</h2>
+    <span class="eyebrow">Case notes</span>
+    <h2 id="workH" class="rv" style="margin-bottom:clamp(32px,5vw,64px)">Selected <em>work</em></h2>
     <div id="projects"></div>
   </div>
 </section>
@@ -300,18 +426,18 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <section class="ideas" id="ideas" aria-labelledby="ideasH" style="background:var(--paper-2)">
   <div class="wrap">
     <div class="top">
-      <h2 id="ideasH">Ideas</h2>
-      <p class="serif-p" style="max-width:24em">An owned archive for what Dayo is thinking about and learning.</p>
+      <div><span class="eyebrow">Writing</span><h2 id="ideasH" class="rv">Ideas</h2></div>
+      <p class="serif-p rv" style="max-width:24em">A home for what I'm thinking about and learning, in my own words.</p>
     </div>
     <div id="articles"></div>
   </div>
 </section>
 
 <!-- FEATURED THOUGHT -->
-<section class="thought" aria-label="Featured thought">
+<section class="thought" id="thoughtSec" aria-label="Featured thought">
   <div class="wrap">
     <figure style="margin:0">
-      <blockquote data-bind="thought.text"></blockquote>
+      <blockquote id="thoughtText"></blockquote>
       <figcaption class="src" data-bind="thought.source"></figcaption>
     </figure>
   </div>
@@ -320,12 +446,13 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <!-- RECOGNITION -->
 <section class="recog" aria-labelledby="recH" style="padding-bottom:clamp(40px,6vw,80px)">
   <div class="wrap">
-    <h2 id="recH" class="small" style="font:600 15px var(--sans);margin-bottom:18px">Recognition</h2>
+    <span class="eyebrow">Recognition</span>
+    <h2 id="recH" class="rv" style="margin-bottom:36px;font-size:clamp(34px,4.6vw,64px)">Moments I'm <em>grateful for</em></h2>
     <div id="recognition"></div>
   </div>
 </section>
 
-<!-- MEDIA (optional: set content.media = [] to hide) -->
+<!-- MEDIA -->
 <section id="media" aria-labelledby="mediaH" data-optional="media" style="padding-top:0">
   <div class="wrap">
     <h2 id="mediaH" style="font-size:clamp(34px,4.6vw,64px);margin-bottom:28px">In the press</h2>
@@ -337,11 +464,12 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <section class="speaking dark" id="speaking" aria-labelledby="spkH">
   <div class="wrap cols">
     <div>
-      <h2 id="spkH">Conversations, ideas and the work behind the work.</h2>
-      <p style="margin-top:28px">Dayo is open to conversations about building brands and businesses. If you're hosting something, or just want a thoughtful founder in the room, get in touch.</p>
-      <p class="actions"><a class="cta" data-bind-mailto="speakSubject" href="#contact">Invite Dayo to speak →</a></p>
+      <span class="eyebrow">Speaking</span>
+      <h2 id="spkH" class="rv">Conversations, ideas and the <em>work behind the work.</em></h2>
+      <p class="rv" style="margin-top:28px;--d:.1s">I'm open to conversations about building brands and businesses. If you're hosting something, or just want a thoughtful founder in the room, get in touch.</p>
+      <p class="actions rv" style="--d:.2s"><a class="cta" data-magnet data-bind-mailto="speakSubject" href="#contact">Invite me to speak <span class="arr">→</span></a></p>
     </div>
-    <ul class="topics" aria-label="Topics">
+    <ul class="topics rv" style="--d:.15s" aria-label="Topics">
       <li>Speaking</li><li>Founder conversations</li><li>Marketing and brand strategy</li>
       <li>Entrepreneurship</li><li>Leadership and building teams</li><li>African creativity and business</li>
     </ul>
@@ -353,11 +481,11 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
   <div class="wrap cols">
     <div class="ph" data-img="about"></div>
     <div class="copy">
-      <h2 id="abH">About Dayo</h2>
-      <p class="serif-p">Founder & CEO of Dynasty Africa, and still Understanding Attention.</p>
-      <p>Dayo builds at the point where creativity, culture, marketing and business meet. He has spoken publicly about starting Dynasty Africa without an established playbook, about learning from failure, and about what pressure and trust do to a company.</p>
-      <p>He cares about developing future leaders rather than just employees, and about helping African brands understand the audiences they are speaking to, and turn that understanding into commercial results.</p>
-      <p class="small">Draft biography built only from public themes. Add personal details (upbringing, education, interests) in <code>content.about</code> once Dayo supplies them.</p>
+      <span class="eyebrow" style="margin-bottom:0">About me</span>
+      <h2 id="abH" class="rv">Hello, I'm <em>Dayo.</em></h2>
+      <p class="serif-p rv">Founder & CEO of Dynasty Africa, and still Understanding Attention.</p>
+      <p class="rv">I build at the point where creativity, culture, marketing and business meet. I've spoken openly about starting Dynasty Africa without an established playbook, about learning from failure, and about what pressure and trust do to a company.</p>
+      <p class="rv">I care about developing future leaders rather than just employees, and about helping African brands understand the audiences they are speaking to, and turn that understanding into commercial results.</p>
     </div>
   </div>
 </section>
@@ -365,10 +493,10 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
 <!-- CONTACT -->
 <section class="contact dark" id="contact" aria-labelledby="ctH">
   <div class="wrap">
-    <h2 id="ctH">Let's talk.</h2>
+    <h2 id="ctH" class="rv">Let's <em>talk.</em></h2>
     <div class="cols">
-      <p class="serif-p">For collaborations, speaking, ideas, partnerships, or a conversation about building brands.</p>
-      <ul class="links" id="links"></ul>
+      <p class="serif-p rv" style="--d:.1s">For collaborations, speaking, ideas, partnerships, or a conversation about building brands.</p>
+      <ul class="links rv" style="--d:.2s" id="links"></ul>
     </div>
   </div>
 </section>
@@ -381,10 +509,12 @@ footer .legal{grid-column:1/-1;color:#8E92A0}
   </div>
   <nav aria-label="Footer">
     <a href="#about">About</a><a href="#work">Work</a><a href="#ideas">Ideas</a><a href="#speaking">Speaking</a><a href="#contact">Contact</a>
-    <a data-bind-href="dynastyUrl" href="#">Dynasty Africa</a>
+    <a data-bind-href="dynastyUrl" href="#" id="footDynasty">Dynasty Africa</a>
   </nav>
   <div class="legal">© <span id="yr"></span> Dayo Adedeji. All rights reserved.</div>
 </footer>
+
+<button class="totop" id="totop" aria-label="Back to top">↑</button>
 
 <script>
 const IMGS = {
@@ -400,97 +530,184 @@ const IMGS = {
   "playbook": "assets/images/journey-without-a-playbook.webp"
 };
 /* =====================================================================
-   CONTENT: the only block that needs editing. No CMS, just data.
-   Anything marked placeholder:true renders with a visible flag and
-   should be replaced or removed before launch.
-   Images: set `src` to a real file. null renders a labelled placeholder.
+   CONTENT: the only block that needs editing.
+   Set email, social URLs and dynastyUrl when ready. Anything left null
+   is quietly hidden on the live page.
    ===================================================================== */
 const content = {
   name: "Dayo Adedeji",
   heroLine: "Founder & CEO of Dynasty Africa, building at the intersection of creativity, culture, marketing and business.",
-  dynastyUrl: null, // e.g. "https://…" (not verified, so left empty)
-  email: null,      // e.g. "hello@…"
+  dynastyUrl: null,
+  email: null,
   speakSubject: "Speaking invitation",
+  roles: ["Founder.", "Builder.", "Understanding Attention."],
+  ticker: ["Creativity", "Culture", "Marketing", "Business", "Understanding Attention", "Lagos", "Building without a playbook"],
   images: {
     hero:  { src: IMGS.forbes, alt: "Dayo Adedeji on his Forbes Africa 30 Under 30 Class of 2026 feature graphic", w: 680, h: 856, pos: "50% 30%", eager: true },
     about: { src: IMGS.about, alt: "Dayo Adedeji in profile, wearing glasses and a dark jacket against a warm backdrop", w: 720, h: 722, pos: "40% 50%" }
   },
-  // Themes are from Dayo's public remarks. Wording is a neutral summary; swap in his own.
   story: [
-    { title: "Starting over", text: "Dayo has said publicly that he lost social accounts and had to rebuild audiences from scratch. It taught him how attention is earned.", image: { src: IMGS.start, alt: "Dayo Adedeji in a black-and-white video still, standing in front of a chain-link fence", w: 484, h: 584, pos: "50% 30%", ratio: "4/5", tall: true } },
-    { title: "Finding the problem", text: "He noticed a founder who needed help communicating a product, and reached out directly to offer it.", image: { src: IMGS.find, alt: "Dayo Adedeji smiling in a dark three-piece suit and brown tie, in a studio portrait", w: 720, h: 658, pos: "50% 20%", ratio: "4/3" } },
-    { title: "Building Dynasty Africa", text: "That experience became part of the foundation of the agency he started in Lagos in 2021.", image: { src: IMGS.team, alt: "The Dynasty Africa team posed together in a white studio, some seated on stools and some standing", w: 1024, h: 683, pos: "50% 50%" } },
-    { title: "Building without a playbook", text: "Influencer marketing in Nigeria had no established blueprint when he entered it, so the company learned by doing.", image: { src: IMGS.playbook, alt: "Dayo Adedeji seen from behind, facing a large illuminated Dynasty Africa sign", w: 484, h: 807, pos: "50% 70%", ratio: "3/4", tall: true } },
-    { title: "What came next", text: "Growth, more work and recognition: a Cannes Dolphin Award for Dynasty Africa, a place in the Forbes Africa 30 Under 30 Class of 2026, and an expansion into Côte d'Ivoire that Dayo announced in November 2025. The story is still being written.", image: { src: IMGS.cannes, alt: "Dayo Adedeji smiling as he holds the Cannes Dolphin Award trophy", w: 662, h: 796, pos: "50% 46%" } }
+    { title: "Starting over", text: "I lost social accounts and had to rebuild audiences from scratch. It taught me how attention is earned.", image: { src: IMGS.start, alt: "Dayo Adedeji in a black-and-white video still, standing in front of a chain-link fence", w: 484, h: 584, pos: "50% 30%", ratio: "4/5", tall: true } },
+    { title: "Finding the problem", text: "I noticed a founder who needed help communicating a product, and reached out directly to offer it.", image: { src: IMGS.find, alt: "Dayo Adedeji smiling in a dark three-piece suit and brown tie, in a studio portrait", w: 720, h: 658, pos: "50% 20%", ratio: "4/3" } },
+    { title: "Building Dynasty Africa", text: "That experience became part of the foundation of the agency I started in Lagos in 2021.", image: { src: IMGS.team, alt: "The Dynasty Africa team posed together in a white studio, some seated on stools and some standing", w: 1024, h: 683, pos: "50% 50%" } },
+    { title: "Building without a playbook", text: "Influencer marketing in Nigeria had no established blueprint when I entered it, so we learned by doing.", image: { src: IMGS.playbook, alt: "Dayo Adedeji seen from behind, facing a large illuminated Dynasty Africa sign", w: 484, h: 807, pos: "50% 70%", ratio: "3/4", tall: true } },
+    { title: "What came next", text: "Growth, more work and recognition: a Cannes Dolphin Award for Dynasty Africa, a place in the Forbes Africa 30 Under 30 Class of 2026, and our expansion into Côte d'Ivoire, which I announced in November 2025. The story is still being written.", image: { src: IMGS.cannes, alt: "Dayo Adedeji smiling as he holds the Cannes Dolphin Award trophy", w: 615, h: 796, pos: "50% 46%" } }
   ],
   projects: [
-    { flag: "", title: "Cadbury Hot Chocolate: \u201c3-in-1 Ways\u201d", brand: "Cadbury", role: "Dynasty Africa: insight development, influencer content direction, creative oversight and campaign execution", description: "An influencer-led campaign positioning Cadbury Hot Chocolate as an affordable, convenient choice for families, built around the catchphrase \u201c3-in-1 Ways.\u201d", note: "Summarised from Dynasty Africa's own campaign graphic. No results are claimed; add them only if verified.", url: null, image: { src: IMGS.cadbury, alt: "Dynasty Africa campaign summary for Cadbury Hot Chocolate, on a purple background with the Cadbury and Dynasty Africa logos", w: 720, h: 953, pos: "50% 50%", ratio: "3/4" } },
-    { flag: "Details to confirm", title: "Moni launch", brand: "Moni", role: "To confirm", description: "Dayo has said publicly that Dynasty Africa created work with Moni for its launch. Add the campaign details and campaign imagery here.", note: "Photo: Dayo at the launch, from his Instagram. Replace with campaign visuals.", url: null, image: { src: IMGS.moni, alt: "Dayo Adedeji in dark clothes lifting his sunglasses, standing in front of a lit MONI sign", w: 682, h: 852, pos: "50% 50%", ratio: "4/5" } }
+    { flag: "", title: "Cadbury Hot Chocolate: \u201c3-in-1 Ways\u201d", brand: "Cadbury", role: "Dynasty Africa: insight development, influencer content direction, creative oversight and campaign execution", description: "An influencer-led campaign positioning Cadbury Hot Chocolate as an affordable, convenient choice for families, built around the catchphrase \u201c3-in-1 Ways.\u201d", url: null, image: { src: IMGS.cadbury, alt: "Dynasty Africa campaign summary for Cadbury Hot Chocolate, on a purple background with the Cadbury and Dynasty Africa logos", w: 720, h: 953, pos: "50% 50%", ratio: "3/4" } },
+    { flag: "Full story coming soon", title: "Moni launch", brand: "Moni", role: "Launch partner", description: "Dynasty Africa created work with Moni for its launch. I'll share the full campaign story here soon.", url: null, image: { src: IMGS.moni, alt: "Dayo Adedeji in dark clothes lifting his sunglasses, standing in front of a lit MONI sign", w: 629, h: 852, pos: "50% 50%", ratio: "4/5" } }
   ],
-  articles: [ // Placeholder structure. Titles echo public themes; there are no article bodies.
-    { placeholder: true, title: "Building without a playbook", date: "Date", category: "Founding", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
-    { placeholder: true, title: "What building Dynasty Africa taught me about trust", date: "Date", category: "Business", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
-    { placeholder: true, title: "Building leaders instead of employees", date: "Date", category: "Leadership", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } },
-    { placeholder: true, title: "What failure teaches you about the market", date: "Date", category: "Learning", excerpt: "Placeholder excerpt. Replace with the opening lines of the real piece.", url: null, image: { src: null, alt: "", note: "Cover" } }
+  articles: [
+    { title: "Building without a playbook", category: "Founding", excerpt: "What it looks like to build in a market where nobody has written the rules yet.", url: null },
+    { title: "What building Dynasty Africa taught me about trust", category: "Business", excerpt: "On pressure, trust and what they do to a company.", url: null },
+    { title: "Building leaders instead of employees", category: "Leadership", excerpt: "Why I would rather grow future leaders than collect headcount.", url: null },
+    { title: "What failure teaches you about the market", category: "Learning", excerpt: "Losing everything online taught me more about attention than winning ever did.", url: null }
   ],
   thought: {
-    text: "Placeholder: one idea from Dayo's own writing goes here.",
-    source: "Placeholder. Use only a direct, sourced quote from Dayo's public writing, and link the source."
+    text: "Marketing is a way of paying attention: to people, to culture, to what a brand is really trying to say.",
+    source: "Dayo Adedeji, Founder & CEO, Dynasty Africa"
   },
   recognition: [
     { title: "Forbes Africa 30 Under 30", detail: "Class of 2026", url: null },
-    { title: "Cannes Dolphin Award", detail: "Won by Dynasty Africa. Dayo announced it on his Instagram.", url: null }
+    { title: "Cannes Dolphin Award", detail: "Won by Dynasty Africa. I shared the news on Instagram.", url: null }
   ],
-  media: [], // add { publication, title, date, description, url }. Empty array hides the section and nav link.
+  media: [],
   social: [
     { label: "LinkedIn", url: null }, { label: "Instagram", url: null },
     { label: "X", url: null }, { label: "Dynasty Africa", url: null }
   ]
 };
 
-/* ---------- Rendering (small, dependency-free) ---------- */
+/* ---------- Rendering ---------- */
 const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const el = (h) => { const t = document.createElement("template"); t.innerHTML = h.trim(); return t.content.firstChild; };
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const get = (o, p) => p.split(".").reduce((a, k) => a?.[k], o);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function imgFail(i){const ph=i.closest(".ph"),host=ph&&ph.closest(".chapter,.work-item");if(host)host.classList.add("noimg");if(ph)ph.remove();}
 const slot = (img, extra = "") => img?.src
-  ? `<div class="ph reveal ${extra}"${img.ratio ? ` style="--r:${img.ratio}"` : ""}><img src="${img.src}" alt="${esc(img.alt)}" width="${img.w}" height="${img.h}" decoding="async" ${img.eager ? 'fetchpriority="high"' : 'loading="lazy"'} style="object-position:${img.pos || "50% 50%"}"></div>`
-  : `<div class="ph empty reveal ${extra}" role="img" aria-label="Image placeholder"><span class="note">${esc(img?.note || "Image placeholder")}</span></div>`;
+  ? `<div class="ph reveal ${extra}"${img.ratio ? ` style="--r:${img.ratio}"` : ""}><img src="${img.src}" alt="${esc(img.alt)}" width="${img.w}" height="${img.h}" decoding="async" onerror="imgFail(this)" ${img.eager ? 'fetchpriority="high"' : 'loading="lazy"'} style="object-position:${img.pos || "50% 50%"}"></div>`
+  : `<div class="ph empty reveal ${extra}" role="img" aria-label="Image"></div>`;
 
-document.querySelectorAll("[data-bind]").forEach(n => { const k = n.dataset.bind; if (k !== "name-lines") n.textContent = get(content, k); });
-document.querySelectorAll("[data-bind-href]").forEach(n => { const u = get(content, n.dataset.bindHref); if (u) { n.href = u; n.rel = "noopener"; } else n.title = "Add the Dynasty Africa URL in content.dynastyUrl"; });
-document.querySelectorAll("[data-bind-mailto]").forEach(n => { if (content.email) n.href = `mailto:${content.email}?subject=${encodeURIComponent(content[n.dataset.bindMailto])}`; });
-document.querySelectorAll("[data-img]").forEach(n => { const w = el(slot(content.images[n.dataset.img])); n.replaceWith(w); w.className += " " + n.className.replace("ph", "").trim(); });
+$$("[data-bind]").forEach(n => { n.textContent = get(content, n.dataset.bind); });
+$$("[data-bind-href]").forEach(n => { const u = get(content, n.dataset.bindHref); if (u) { n.href = u; n.rel = "noopener"; } else (n.closest("p") && n.closest("#dynastyCta") ? n.closest("#dynastyCta") : n).remove(); });
+$$("[data-bind-mailto]").forEach(n => { if (content.email) n.href = `mailto:${content.email}?subject=${encodeURIComponent(content[n.dataset.bindMailto])}`; });
+$$("[data-img]").forEach(n => { const w = el(slot(content.images[n.dataset.img])); const keep = n.className.replace("ph", "").trim(); n.replaceWith(w); w.className += " " + keep; if (n.hasAttribute("data-parallax")) w.setAttribute("data-parallax", ""); });
 
-$("#chapters").append(...content.story.map(c => el(`<article class="chapter reveal"><div class="txt"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></div>${slot(c.image, c.image.tall ? "tall" : "")}</article>`)));
-$("#projects").append(...content.projects.map(p => el(`<article class="work-item${p.image?.ratio ? " tall" : ""}">${slot(p.image)}<div class="info">${p.flag ? `<span class="flag">${esc(p.flag)}</span>` : ""}<h3>${esc(p.title)}</h3><dl><dt>Brand</dt><dd>${esc(p.brand)}</dd><dt>Role</dt><dd>${esc(p.role)}</dd></dl><p>${esc(p.description)}</p>${p.note ? `<p class="small">${esc(p.note)}</p>` : ""}${p.url ? `<a class="tlink" href="${esc(p.url)}">Read the case study</a>` : ""}</div></article>`)));
-$("#articles").append(...content.articles.map(a => el(`<a class="essay" ${a.url ? `href="${esc(a.url)}"` : 'href="#ideas" aria-disabled="true"'}><div class="meta"><span>${esc(a.date)}</span><span>${esc(a.category)}</span></div><div><h3>${esc(a.title)}</h3><p>${esc(a.excerpt)}</p>${a.placeholder ? '<span class="flag" style="display:block;margin-top:8px">Placeholder</span>' : ""}</div>${slot(a.image)}</a>`)));
-$("#recognition").append(...content.recognition.map(r => el(`<div class="row${r.image ? " has-img" : ""}">${r.image ? slot(r.image) : ""}<p class="big">${esc(r.title)}</p><div><p class="serif-p">${esc(r.detail)}</p>${r.url ? `<p style="margin-top:12px"><a class="tlink" href="${esc(r.url)}" rel="noopener">Read the source</a></p>` : '<p class="small" style="margin-top:8px">Add a source link in content.recognition.</p>'}</div></div>`)));
-$("#mediaList").append(...content.media.map(m => el(`<div class="media-row"><span class="small">${esc(m.date)}</span><div><h3 style="font-size:26px">${esc(m.title)}</h3><p class="small">${esc(m.publication)}. ${esc(m.description)}</p></div><a class="tlink" href="${esc(m.url)}" rel="noopener">Read</a></div>`)));
-if (!content.media.length) document.querySelectorAll('[data-optional="media"]').forEach(n => n.remove());
+/* Hero name: split into letters */
+$$("[data-split]").forEach((n, li) => {
+  const base = li * 4;
+  n.innerHTML = [...n.dataset.split].map((c, i) => `<span class="ch" style="--i:${base + i}" aria-hidden="true">${c}</span>`).join("");
+});
 
+/* Marquee */
+const tick = content.ticker.map(t => `<span>${esc(t)}</span>`).join("");
+$("#marquee").innerHTML = tick + tick + tick + tick;
+
+/* Stats */
+const yrs = new Date().getFullYear() - 2021;
+const stats = [
+  { n: yrs, l: "Years building Dynasty Africa" },
+  { n: 2, l: "Countries: Nigeria and Côte d'Ivoire" },
+  { n: 2, l: "Honours: Cannes Dolphin Award and Forbes Africa 30 Under 30" },
+  { n: 2021, l: "The year I started in Lagos", plain: true }
+];
+$("#stats").append(...stats.map(s => el(`<div class="stat rv"><span class="n" data-count="${s.n}"${s.plain ? ' data-plain="1"' : ""}>0</span><p class="l">${esc(s.l)}</p></div>`)));
+
+/* Chapters, projects, ideas, recognition, press */
+$("#chapters").append(...content.story.map((c, i) => el(`<article class="chapter"><div class="txt rv"><span class="num">0${i + 1}</span><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></div>${slot(c.image, c.image.tall ? "tall" : "")}</article>`)));
+$("#projects").append(...content.projects.map(p => el(`<article class="work-item${p.image?.ratio ? " tall" : ""}">${slot(p.image, "tiltable")}<div class="info rv">${p.flag ? `<span class="flag">${esc(p.flag)}</span>` : ""}<h3>${esc(p.title)}</h3><dl><dt>Brand</dt><dd>${esc(p.brand)}</dd><dt>Role</dt><dd>${esc(p.role)}</dd></dl><p>${esc(p.description)}</p>${p.url ? `<a class="tlink" href="${esc(p.url)}">Read the case study</a>` : ""}</div></article>`)));
+$("#articles").append(...content.articles.map((a, i) => el(`<a class="essay rv" style="--d:${i * .08}s" ${a.url ? `href="${esc(a.url)}"` : 'href="#ideas" aria-disabled="true"'}><div class="meta"><span>${a.date ? esc(a.date) : "0" + (i + 1)}</span><span>${esc(a.category)}</span></div><div><h3>${esc(a.title)}</h3><p>${esc(a.excerpt)}</p>${a.url ? "" : '<span class="soon">Coming soon</span>'}</div>${slot(a.image || {})}</a>`)));
+$("#recognition").append(...content.recognition.map(r => el(`<div class="row rv"><p class="big">${esc(r.title)}</p><div><p class="serif-p">${esc(r.detail)}</p>${r.url ? `<p style="margin-top:12px"><a class="tlink" href="${esc(r.url)}" rel="noopener">Read the source</a></p>` : ""}</div></div>`)));
+$("#mediaList").append(...content.media.map(m => el(`<div class="media-row rv"><span class="small">${esc(m.date)}</span><div><h3 style="font-size:26px">${esc(m.title)}</h3><p class="small">${esc(m.publication)}. ${esc(m.description)}</p></div><a class="tlink" href="${esc(m.url)}" rel="noopener">Read</a></div>`)));
+if (!content.media.length) $$('[data-optional="media"]').forEach(n => n.remove());
+
+/* Contact links: show only what exists */
 const links = [];
-links.push(content.email ? `<li><span class="k">Email</span><a class="tlink" href="mailto:${esc(content.email)}">${esc(content.email)}</a></li>` : `<li><span class="k">Email</span><span class="off">Add in content.email</span></li>`);
-content.social.forEach(s => links.push(`<li><span class="k">${esc(s.label)}</span>${s.url && /^https?:/.test(s.url) ? `<a class="tlink" href="${esc(s.url)}" rel="noopener">${esc(s.url.replace(/^https?:\/\/(www\.)?/, ""))}</a>` : `<span class="off">Add link</span>`}</li>`));
+if (content.email) links.push(`<li><span class="k">Email</span><a class="tlink" href="mailto:${esc(content.email)}">${esc(content.email)}</a></li>`);
+content.social.forEach(s => { if (s.url && /^https?:/.test(s.url)) links.push(`<li><span class="k">${esc(s.label)}</span><a class="tlink" href="${esc(s.url)}" rel="noopener">${esc(s.url.replace(/^https?:\/\/(www\.)?/, ""))}</a></li>`); });
+if (!links.length) links.push(`<li style="grid-template-columns:1fr"><span class="k">Contact details are on the way. Check back very soon.</span></li>`);
 $("#links").append(...links.map(el));
 $("#yr").textContent = new Date().getFullYear();
+if (!content.dynastyUrl) $("#footDynasty")?.remove();
+
+/* Featured thought: word-by-word */
+$("#thoughtText").innerHTML = content.thought.text.split(" ").map((w, i) => `<span class="w" style="--i:${i}">${esc(w)}</span>`).join(" ");
 
 /* ---------- Behaviour ---------- */
-const nav = $("#nav"), btn = $("#menuBtn"), menu = $("#menu");
-let lastY = 0;
-addEventListener("scroll", () => {
-  const y = scrollY;
-  if (!menu.classList.contains("open")) nav.classList.toggle("hide", y > lastY && y > 120);
-  lastY = y;
-}, { passive: true });
-nav.addEventListener("focusin", () => nav.classList.remove("hide"));
+const nav = $("#nav"), btn = $("#menuBtn"), menu = $("#menu"), totop = $("#totop"), prog = $("#progress");
 const setMenu = (o) => { menu.classList.toggle("open", o); nav.classList.toggle("menu-open", o); btn.setAttribute("aria-expanded", o); btn.textContent = o ? "Close" : "Menu"; document.body.style.overflow = o ? "hidden" : ""; };
 btn.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
 menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
 addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+nav.addEventListener("focusin", () => nav.classList.remove("hide"));
+totop.addEventListener("click", () => scrollTo({ top: 0 }));
 
-const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 }) : null;
-document.querySelectorAll(".reveal").forEach(n => io ? io.observe(n) : n.classList.add("in"));
+/* Loader, then start the hero */
+const typeRoles = () => {
+  const out = $("#typed"), text = content.roles.join(" ");
+  if (reduce) { out.textContent = text; return; }
+  let i = 0; (function step() { out.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(step, 42); })();
+};
+const start = () => {
+  $("#loader").classList.add("done");
+  document.body.classList.remove("loading");
+  document.body.classList.add("ready");
+  setTimeout(typeRoles, 900);
+  setTimeout(() => $("#loader").remove(), 1100);
+};
+reduce ? start() : addEventListener("load", () => setTimeout(start, 1500));
+setTimeout(() => { if (document.body.classList.contains("loading")) start(); }, 4000);
+
+/* Scroll: progress bar, nav hide, parallax, back-to-top */
+let lastY = 0, ticking = false;
+const onScroll = () => {
+  const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+  prog.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+  if (!menu.classList.contains("open")) nav.classList.toggle("hide", y > lastY && y > 120);
+  totop.classList.toggle("show", y > 700);
+  if (!reduce) $$("[data-parallax] img").forEach(img => { const r = img.parentElement.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) img.style.transform = `scale(1.12) translateY(${(r.top - innerHeight / 2) * -.04}px)`; });
+  lastY = y; ticking = false;
+};
+addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+onScroll();
+
+/* Reveal on scroll */
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); if (e.target.dataset.count) countUp(e.target); } }), { threshold: .15 }) : null;
+$$(".rv,.reveal,.chapter,.thought").forEach(n => io ? io.observe(n) : n.classList.add("in"));
+$$("[data-count]").forEach(n => io ? io.observe(n) : countUp(n));
+
+/* Count up */
+function countUp(n) {
+  const to = +n.dataset.count, plain = n.dataset.plain;
+  if (reduce) { n.textContent = to; return; }
+  const t0 = performance.now(), d = 1600;
+  (function f(t) { const p = Math.min((t - t0) / d, 1), e = 1 - Math.pow(1 - p, 4); n.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(f); })(t0);
+}
+
+/* Active nav link */
+const secs = $$("main section[id]"), navLinks = $$(".nav ul a[href^='#']");
+if ("IntersectionObserver" in window) {
+  const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
+  secs.forEach(s => so.observe(s));
+}
+
+/* Desktop-only: cursor, magnetic buttons, 3D tilt */
+if (!reduce && matchMedia("(hover:hover) and (pointer:fine)").matches) {
+  const cur = $("#cursor"); let cx = 0, cy = 0, tx = 0, ty = 0;
+  addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; cur.classList.add("on"); });
+  (function loop() { cx += (tx - cx) * .18; cy += (ty - cy) * .18; cur.style.transform = `translate(${cx - cur.offsetWidth / 2}px,${cy - cur.offsetHeight / 2}px)`; requestAnimationFrame(loop); })();
+  document.addEventListener("mouseover", e => { cur.classList.toggle("big", !!e.target.closest("a,button,.ph,.topics li")); });
+  $$("[data-magnet]").forEach(b => {
+    b.addEventListener("mousemove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .28}px)`; });
+    b.addEventListener("mouseleave", () => b.style.transform = "");
+  });
+  $$(".tiltable").forEach(t => {
+    t.addEventListener("mousemove", e => { const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; t.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) scale(1.015)`; });
+    t.addEventListener("mouseleave", () => t.style.transform = "");
+  });
+}
 </script>
 </body>
 </html>
